@@ -1,0 +1,10 @@
+body {
+  background-image: url('./assets/ep_naturalblack.png')
+}
+
+.App {
+  text-align: center;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
