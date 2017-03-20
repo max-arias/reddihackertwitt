@@ -9,7 +9,7 @@ List:
 
 Styles
 
-- [ ] Use styles of each service
+- [ ] Use styles of each service (https://github.com/gajus/react-css-modules)
 
 
 ## Actions
