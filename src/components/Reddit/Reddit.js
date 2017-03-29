@@ -16,30 +16,46 @@ class Reddit extends Component {
       popularStories: []
     };
   }
-
-  componentDidMount() {
+  querySubreddit(subreddit) {
     let _this = this;
     axios
-    .get("https://www.reddit.com/r/popular/.json")
-    .then(function(result) {    
-      let popularStories = _.get(result, ['data', 'data', 'children'], false);
-      if(popularStories) {
-        _this.setState({
-          'popularStories': convertDataForList(popularStories, 'reddit')
-        });
-      }
-    });
+      .get(`https://www.reddit.com/r/${subreddit}/.json`)
+      .then(function(result) {    
+        let subStories = _.get(result, ['data', 'data', 'children'], false);
+        if(subStories && subStories.length) {
+          _this.setState({
+            'subStories': convertDataForList(subStories, 'reddit')
+          });
+        }
+      });
+  }
+  componentDidMount() {    
+    this.querySubreddit('popular');   
   }
 
   render() {
     return (
       <div className="Reddit">
         <div className="header">
-          <img className="RedditLogo" src={logo} alt="Reddit Logo"/>
-          <h1>Reddit!</h1>
+          <div className="image">
+            <img className="RedditLogo" src={logo} alt="Reddit Logo"/>
+          </div>
+          <div className="subreddits">
+            <a href="#">Front</a>
+            &nbsp;|&nbsp;
+            <a href="#">All</a>
+            &nbsp;|&nbsp;
+            <a href="#">Popular</a>
+            &nbsp;-&nbsp;
+            <div className="searchSub">
+              <input type="text" placeholder="Load subreddit..."/>
+              <i className="fa fa-search" aria-hidden="true"></i>
+            </div>
+          </div>
+          
         </div>
         <div className="content">
-          <List data={this.state.popularStories}/>
+          <List data={this.state.subStories}/>
         </div>
       </div>
     );

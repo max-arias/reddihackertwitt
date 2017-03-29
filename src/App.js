@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import 'flexboxgrid/dist/flexboxgrid.min.css';
 import './assets/ep_naturalblack.png'
 import './App.css';
+import 'font-awesome/css/font-awesome.min.css';
 
 import Reddit from './components/Reddit/Reddit'
 import HackerNews from './components/HackerNews/HackerNews'

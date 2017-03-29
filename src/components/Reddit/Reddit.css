@@ -1,6 +1,56 @@
 .Reddit {
   background-color: #fff;
 }
+
+.Reddit .header {
+  background-color: #cee3f8;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Reddit .header .subreddits {
+  padding-right: 10px;
+  color: #cacaca;
+}
+
+.Reddit .header .subreddits a {
+  text-decoration: none;
+  color: #000;
+}
+
+.Reddit .header .subreddits .searchSub {
+  display: inline-block;
+  position: relative;
+}
+
+.Reddit .header .subreddits .searchSub input {
+  border: none;
+  background-color: #cee3f8;
+  border-bottom: 1px solid #888;
+  outline: none;
+}
+
+.Reddit .header .subreddits .searchSub i {
+  position: absolute;
+  right: 0px;
+  cursor: pointer;
+}
+
 .RedditLogo {
+  display: block;
   width: 50px;
+  position: relative;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.Reddit .content {
+  max-height: 92vh;
+  overflow-y: scroll;
+}
+
+.Reddit .content .stories li:nth-child(even) {
+  background-color: #F0F3FC;
 }

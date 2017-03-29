@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import moment from 'moment'
 
 function convertDataForList(data, type) {
   if(!_.isArray(data)) return false;
@@ -15,8 +16,10 @@ function convertDataForList(data, type) {
           'img': _.get(item, 'data.thumbnail', null),
           'img_url': _.get(item, 'data.url', null),
           'url': _.get(item, 'data.permalink', null),
-          'host': host
+          'host': host,
+          'date_created': moment.unix(_.get(item, 'data.created', null)).toNow()
         };
+        console.log(newItem);
         return newItem;
       });
     break;

@@ -1,0 +1,40 @@
+.list .stories {
+  padding-left: 0px;
+  margin: 0px;
+  list-style: none;
+}
+
+.list .stories li {
+  height: 50px;
+  padding: 5px;
+  vertical-align-align: center;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.list .stories li > div {
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.list .stories li .image {
+  width: 50px;
+}
+
+.list .stories li .extraData {
+  padding-left: 5px;
+}
+
+.list .stories li .storyLink {
+  vertical-align: top;  
+  text-decoration: none;
+}
+
+.list .stories li .dateCreated {
+  float: left;
+  width: 100%;
+  color: #888;
+  font-size: 12px;
+}
