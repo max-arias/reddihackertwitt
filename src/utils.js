@@ -19,7 +19,6 @@ function convertDataForList(data, type) {
           'host': host,
           'date_created': moment.unix(_.get(item, 'data.created', null)).toNow()
         };
-        console.log(newItem);
         return newItem;
       });
     break;

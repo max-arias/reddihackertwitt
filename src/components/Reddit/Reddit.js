@@ -13,22 +13,45 @@ class Reddit extends Component {
   constructor(props) { //Instead of getInitialState, we set the values in the construct
     super(props);
     this.state = {
-      popularStories: []
+      subStories: [],
+      subredditInput: ''
     };
   }
+
+  handleInputChange(e) {
+    this.setState({
+      subredditInput: e.target.value
+    });
+  }
+
+  handleKeyPress(e) {
+    if (e.key === 'Enter') {
+      this.querySubreddit(this.state.subredditInput);
+    }
+  }
+
   querySubreddit(subreddit) {
     let _this = this;
-    axios
-      .get(`https://www.reddit.com/r/${subreddit}/.json`)
-      .then(function(result) {    
-        let subStories = _.get(result, ['data', 'data', 'children'], false);
-        if(subStories && subStories.length) {
-          _this.setState({
-            'subStories': convertDataForList(subStories, 'reddit')
-          });
-        }
-      });
+    let subredditUrl = subreddit ? `https://www.reddit.com/r/${subreddit}/.json` : 'https://www.reddit.com/.json';
+    
+    this.setState({subStories: []});
+    
+    try {
+      axios
+        .get(subredditUrl)
+        .then(function(result) {
+          let subStories = _.get(result, ['data', 'data', 'children'], false);
+          if(subStories && subStories.length) {
+            _this.setState({
+              'subStories': convertDataForList(subStories, 'reddit')
+            });
+          }
+        });
+    } catch(e) {
+      console.log(e)
+    }
   }
+
   componentDidMount() {    
     this.querySubreddit('popular');   
   }
@@ -38,24 +61,34 @@ class Reddit extends Component {
       <div className="Reddit">
         <div className="header">
           <div className="image">
-            <img className="RedditLogo" src={logo} alt="Reddit Logo"/>
+            <a href="https://www.reddit.com" target="_blank">
+              <img className="RedditLogo" src={logo} alt="Reddit Logo"/>
+            </a>
           </div>
           <div className="subreddits">
-            <a href="#">Front</a>
+            <a href="#" onClick={() => this.querySubreddit('')}>Front</a>
             &nbsp;|&nbsp;
-            <a href="#">All</a>
+            <a href="#" onClick={() => this.querySubreddit('all')}>All</a>
             &nbsp;|&nbsp;
-            <a href="#">Popular</a>
+            <a href="#" onClick={() => this.querySubreddit('popular')}>Popular</a>
             &nbsp;-&nbsp;
             <div className="searchSub">
-              <input type="text" placeholder="Load subreddit..."/>
-              <i className="fa fa-search" aria-hidden="true"></i>
+              <input type="text" placeholder="Load subreddit..." onChange={this.handleInputChange.bind(this)} onKeyPress={this.handleKeyPress.bind(this)}/>
+              <i className="fa fa-search" aria-hidden="true" onClick={() => this.querySubreddit(this.state.subredditInput)}></i>
             </div>
           </div>
           
         </div>
         <div className="content">
-          <List data={this.state.subStories}/>
+          
+          { 
+          this.state.subStories.length ?
+            <List data={this.state.subStories}/>
+          :
+            <div className="loadingContainer">
+              <h2>Loading <span>.</span><span>.</span><span>.</span></h2>
+            </div>
+          }
         </div>
       </div>
     );

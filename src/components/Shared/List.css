@@ -10,13 +10,12 @@
   vertical-align-align: center;
   display: flex;
   justify-content: flex-start;
+
 }
 
 .list .stories li > div {
   text-align: left;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+
 }
 
 .list .stories li .image {
@@ -24,12 +23,16 @@
 }
 
 .list .stories li .extraData {
-  padding-left: 5px;
+  padding-left: 5px;  
 }
 
 .list .stories li .storyLink {
   vertical-align: top;  
   text-decoration: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .list .stories li .dateCreated {
